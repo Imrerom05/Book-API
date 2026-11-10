@@ -21,7 +21,7 @@ from app.schemas import (
 
 app = FastAPI(
     title="Book API",
-    description="API for books, authors and series",
+    description="API for works, authors and series",
     version="0.1.0"
 )
 
@@ -303,6 +303,33 @@ def search_authors(
         }
         for author in authors
     ]
+
+@app.get(
+    "/authors/{author_id}",
+    response_model=AuthorResponse,
+    summary="Get full author",
+    description="Get an author together with all of their works."
+)
+def get_full_author(
+    author_id: int,
+    db: Session = Depends(get_db)
+):
+    author = db.get(Author, author_id)
+
+    if author is None:
+        raise HTTPException(
+            status_code=404,
+            detail="Author not found"
+        )
+
+    return {
+        "author_id": author.author_id,
+        "name": author.name,
+        "birth": author.birth,
+        "death": author.death,
+        "image_url": author.image_url,
+        "description": author.description,
+    }
 
 
 @app.get(
