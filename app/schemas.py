@@ -1,4 +1,5 @@
 from typing import Optional
+from datetime import date
 
 from pydantic import BaseModel
 
@@ -31,8 +32,8 @@ class AuthorResponse(BaseModel):
 
     author_id: int
     name: str
-    birth: Optional[int] = None
-    death: Optional[int] = None
+    birth: Optional[date] = None
+    death: Optional[date] = None
     image_url: Optional[str] = None
     description: Optional[str] = None
 
@@ -113,8 +114,8 @@ class FullAuthorResponse(BaseModel):
 
     author_id: int
     name: str
-    birth: Optional[int] = None
-    death: Optional[int] = None
+    birth: Optional[date] = None
+    death: Optional[date] = None
     image_url: Optional[str] = None
     description: Optional[str] = None
 
